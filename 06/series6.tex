@@ -1,0 +1,80 @@
+\documentclass[11pt,a4paper]{article}
+
+\pagestyle{plain}
+
+\usepackage{fullpage}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+
+% \usepackage{xcolor}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{textcomp}
+\usepackage{listings}
+\lstset{
+    keywordstyle=\color{BlueGreen},
+    commentstyle=\color{Gray},
+    language={Promela},
+    basicstyle=\ttfamily\footnotesize,
+    tabsize=2
+    % frame=single,
+    % caption=\lstname
+}
+
+
+
+\title{
+        Theory and Application of Automated Verification \linebreak
+        \bf{Series 6}
+}
+\author{
+        Laura Rettig\footnote{laura.rettig@unifr.ch}
+       }
+\date{\normalsize \today}
+
+\newcommand{\questionhead}[1]
+  {\bigskip
+   \noindent{\Large\bf Exercise #1.}
+   }
+
+%-----------------------------------
+\begin{document}
+%-----------------------------------
+
+\maketitle
+
+\questionhead{1}
+
+\lstinputlisting[firstline=4]{exercise1.pml}
+
+
+\questionhead{2}
+
+LTL formula for the mutex: $\lnot\lozenge(count>1)$ 
+
+\lstinputlisting[firstline=4]{exercise2.pml}
+
+\questionhead{3}
+
+\begin{itemize}
+\item \begin{enumerate}
+\item True, ($\Rightarrow$) if p is always true and q is also always true, then clearly at any time, both p and q are true together; same for $\Leftarrow$.
+\item False, these are not equivalent, since p may be true at a different point in time than q, so that they are never true at the same time. (The $\Leftarrow$ part is true, since if they are eventually true together, than both of p and q are eventually true considered individually.)
+\item True. p until q means that q will be true eventually, so $\Leftarrow$ holds; also for $\Rightarrow$, it doesn't matter when p is true or if ever, the LHS is true as soon as q becomes true.
+\end{enumerate}
+\item $f_1 U f_2$ becomes true if either $f_2$ is already true at that time, or $f_1$ is true and at the next step, the scenario is the same (either $f_2$ or $f_1$ and at the next step...)
+\item $\lozenge\square\lnot(x>5)$
+\end{itemize}
+
+
+%-------------------------
+\end{document}
+%-------------------------
+
+
+
+
+
+
+

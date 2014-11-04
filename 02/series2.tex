@@ -1,0 +1,88 @@
+\documentclass[11pt,a4paper]{article}
+
+\pagestyle{plain}
+
+\usepackage{fullpage}
+\usepackage{parskip}
+\usepackage{hyperref}
+
+% \usepackage{xcolor}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{textcomp}
+\usepackage{listings}
+\lstset{
+    keywordstyle=\color{BlueGreen},
+    commentstyle=\color{Gray},
+    language={Promela},
+    basicstyle=\ttfamily\footnotesize,
+    tabsize=2
+    % frame=single,
+    % caption=\lstname
+}
+
+
+
+\title{
+        Theory and Application of Automated Verification \linebreak
+        \bf{Series 2}
+}
+\author{
+        Laura Rettig\footnote{laura.rettig@unifr.ch}
+       }
+\date{\normalsize \today}
+
+\newcommand{\questionhead}[1]
+  {\bigskip
+   \noindent{\Large\bf Exercise #1.}
+   }
+
+%-----------------------------------
+\begin{document}
+%-----------------------------------
+
+\maketitle
+
+\questionhead{1}
+
+\lstinputlisting[firstline=4]{exercise1.pml}
+
+\questionhead{2}
+
+\lstinputlisting[firstline=4]{exercise2.pml}
+
+A simulation of the model runs indefinitely. When running a verification, Spin detects no errors. However, both processes (sender and receiver) do not reach their end states.
+
+Observations in changing the data type of \texttt{counter0} and \texttt{counter1}:
+\begin{itemize}
+\item The state vector is 8 byte larger for short and int types (byte: 36 byte; short/int: 44byte). So more space is needed to store the state in which the system is\footnote{\url{http://spinroot.com/spin/Man/Quick.html}}. Brief testing showed that every short or int variable requires the state vector to increase by 4 byte, whereas additional byte variables do not increase the size.
+
+\item int and short data types make the model have a much higher memory usage than with a byte type (unsurprisingly, given it can run for longer and each state takes up more space).
+
+\item With byte types, the simulation runs for around 0.05 seconds; short and int both run for around 12-13 seconds.
+
+Surprisingly, although short can only hold numbers half as big as int, it is still treated exactly the same.
+\end{itemize}
+
+\questionhead{3}
+Spin does not detect an error with the weak fairness constraint. Since both processes are enabled at any time, given that an assignment is always executable. Therefore, with weak fairness, both processes will eventually execute.
+
+Interestingly, it is the same when not setting the weak fairness constraint: Spin detects no non-progress cycles. My hypothesis would be that, since both processes are identical, the outcome will always be the same. In that case it wouldn't matter which process executes, so fairness is not an issue.\\
+However, changing the code such that only one progress has the ``progress'' label results in the detection of a non-progress cycle when fairness is disabled.
+
+\lstinputlisting[firstline=4]{exercise3_onelabel.pml}
+
+\newpage
+\questionhead{4}
+\lstinputlisting[firstline=4]{exercise4.pml}
+
+
+%-------------------------
+\end{document}
+%-------------------------
+
+
+
+
+
+
+
