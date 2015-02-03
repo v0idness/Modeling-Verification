@@ -1,0 +1,83 @@
+\documentclass[11pt,a4paper]{article}
+
+\pagestyle{plain}
+
+\usepackage{fullpage}
+%\usepackage{parskip}
+\usepackage{hyperref}
+%\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+
+% \usepackage{xcolor}
+%\usepackage[usenames,dvipsnames]{color}
+%\usepackage{textcomp}
+%\usepackage{listings}
+% \lstset{
+%     keywordstyle=\color{BlueGreen},
+%     commentstyle=\color{Gray},
+%     language={Promela},
+%     basicstyle=\ttfamily\footnotesize,
+%     tabsize=2
+%     % frame=single,
+%     % caption=\lstname
+% }
+
+
+
+\title{
+        Theory and Application of Automated Verification \linebreak
+        \bf{Series 10: Fairness}
+}
+\author{
+        Laura Rettig\footnote{laura.rettig@unifr.ch}
+       }
+\date{\normalsize \today}
+
+% \newcommand{\questionhead}[1]
+%   {\bigskip
+%    \noindent{\Large\bf Exercise #1.}
+%    }
+
+%-----------------------------------
+\begin{document}
+%-----------------------------------
+
+\maketitle
+
+\begin{enumerate}
+\item Fairness has to do with infinite execution. The violation of a safety property happens in finite scenarios, therefore fairness does not change anything about safety properties. On the other hand, liveness properties often making statements about infinite execution (e.g. ``infinitely often''), such that fairness or the lack thereof (one process not executing infinitely often when enabled infinitely often) may change the outcome of the verification of a liveness property.
+\item From the formulas given in the lecture:
+\\ Lack of weak fairness: 
+\begin{align*}
+\lnot wfair &\equiv \lozenge\square enabled\land\lnot\square\lozenge executed \\
+	&\equiv \lozenge\square enabled\land\lozenge\square\lnot executed\\
+wfair &\equiv \lnot(\lozenge\square enabled\land\lozenge\square\lnot executed)\\
+	&\equiv \lnot\lozenge\square enabled \vee \lnot\lozenge\square\lnot executed \\
+&\equiv \square\lnot\square enabled \vee \square\lnot\lnot\lozenge executed\\
+	&\equiv \square\lozenge\lnot enabled \vee \square\lozenge executed
+\end{align*}
+% not eventually = forever not
+Lack of strong fairness: 
+\begin{align*}
+\lnot sfair &\equiv \square\lozenge enabled \land \lnot\square\lozenge executed \\
+	&\equiv \square\lozenge enabled \land \lozenge\square\lnot executed \\
+sfair &\equiv \lnot(\square\lozenge enabled \land \lozenge\square\lnot executed) \\
+	&\equiv \lnot\square\lozenge enabled \vee \lnot\lozenge\square\lnot executed \\
+	&\equiv \lozenge\lnot\lozenge enabled \vee \square\lnot\lnot\lozenge executed \\
+	&\equiv \lozenge\square\lnot enabled \vee \square\lozenge executed \\
+	&\implies wfair: \square\lozenge\lnot enabled \vee \square\lozenge executed
+\end{align*}
+Strong fairness implies weak fairness in the sense that if something is eventually forever not enabled, this also means that it is infinitely often not enabled (the second part of the disjunction is identical). However, weak fairness does not imply strong fairness, since being not enabled infinitely often does not mean that, at points in time inbetween, it may not be enabled; so it is not the same as ``forever not enabled''. With this fact, that strong fairness includes weak fairness, strong fairness is obviously stronger / weak fairness weaker.
+\end{enumerate}
+
+
+%-------------------------
+\end{document}
+%-------------------------
+
+
+
+
+
+
+

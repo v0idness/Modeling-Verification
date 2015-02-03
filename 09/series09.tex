@@ -1,0 +1,64 @@
+\documentclass[11pt,a4paper]{article}
+
+\pagestyle{plain}
+
+\usepackage{fullpage}
+%\usepackage{parskip}
+\usepackage{hyperref}
+%\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+
+% \usepackage{xcolor}
+%\usepackage[usenames,dvipsnames]{color}
+%\usepackage{textcomp}
+%\usepackage{listings}
+% \lstset{
+%     keywordstyle=\color{BlueGreen},
+%     commentstyle=\color{Gray},
+%     language={Promela},
+%     basicstyle=\ttfamily\footnotesize,
+%     tabsize=2
+%     % frame=single,
+%     % caption=\lstname
+% }
+
+
+
+\title{
+        Theory and Application of Automated Verification \linebreak
+        \bf{Series 9: Safety and Liveness}
+}
+\author{
+        Laura Rettig\footnote{laura.rettig@unifr.ch}
+       }
+\date{\normalsize \today}
+
+% \newcommand{\questionhead}[1]
+%   {\bigskip
+%    \noindent{\Large\bf Exercise #1.}
+%    }
+
+%-----------------------------------
+\begin{document}
+%-----------------------------------
+
+\maketitle
+
+\begin{enumerate}
+\item $\square\lozenge (x>10)$: \emph{infinitely often ($x>10$)} is not a safety property, because there exists no finite prefix after which the infinite word could not still become accepting. \\ It is a liveness property, because it expresses that the desired property ($x>10$) will occur infinitely often in the future in an $\omega$-word.
+\item $\lnot(\square\lozenge (x>10))$: \emph{not infinitely often ($x>10$)} is also not a safety property because independent of the finite prefix, there exists an infinite suffix not containing any ($x>10$), which will satisfy the property. \\ It is hence a liveness property, with the desirable event being the occurrence of a last point in time where ($x>10$), such that only finitely many times exist where ($x>10$).
+\item $\lozenge(x>10)$: \emph{eventually ($x>10$)} is not a safety property, because there exists no finite prefix such that the infinite part cannot contain ($x>10$), thus satisfying the property. \\ It is a liveness property, with two possibilities to satisfy it: Either ($x>10$) already happens in any finite prefix, or there exists one infinite $x_\omega \in \Sigma^\omega$ in which, at some point in time,  ($x>10$).
+\item $\lnot(\lozenge (x>10))$: \emph{not eventually ($x>10$)} is a safety property, because for the finite prefix containing ($x>10$), whatever happens afterwards will no longer satisfy the property. \\ Since it is a safety property ($\neq \Sigma*$), it cannot be a liveness property.
+\end{enumerate}
+
+
+%-------------------------
+\end{document}
+%-------------------------
+
+
+
+
+
+
+
